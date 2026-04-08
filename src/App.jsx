@@ -8,7 +8,7 @@ import Teaching from "./components/Teaching";
 import Certificates from "./components/Certificates";
 import Contact from "./components/Contact";
 import Github from "./components/Github";
-import Linkedin from "./components/Linkedin";  // ✅ LinkedIn import kiya
+import Linkedin from "./components/Linkedin";
 
 export default function App() {
   // Smooth scroll progress bar
@@ -26,11 +26,11 @@ export default function App() {
 
   // Section animations variants
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.5, ease: "easeOut" }
     }
   };
 
@@ -72,87 +72,95 @@ export default function App() {
         <div className="absolute w-[400px] h-[400px] bg-indigo-400/5 rounded-full blur-[100px] top-[50%] left-[30%] animate-float-medium" />
       </div>
 
-      {/* MAIN CONTENT */}
+      {/* MAIN CONTENT - Mobile gaps fixed */}
       <div className="relative z-10">
         
         {/* Navbar - Stays on top */}
         <Navbar />
         
-        {/* Hero Section - With entrance animation */}
+        {/* Hero Section - No extra gap */}
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
+          className="scroll-mt-0"
         >
           <Hero />
         </motion.section>
 
-        {/* Projects Section */}
+        {/* Projects Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Projects />
         </motion.section>
 
-        {/* Skills Section */}
+        {/* Skills Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Skills />
         </motion.section>
 
-        {/* Teaching Section */}
+        {/* Teaching Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Teaching />
         </motion.section>
 
-        {/* Certificates Section */}
+        {/* Certificates Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Certificates />
         </motion.section>
 
-        {/* ✅ GITHUB SECTION */}
+        {/* Github Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Github />
         </motion.section>
 
-        {/* ✅ LINKEDIN SECTION - ADDED */}
+        {/* LinkedIn Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Linkedin />
         </motion.section>
 
-        {/* Contact Section */}
+        {/* Contact Section - Reduced gap */}
         <motion.section
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          className="scroll-mt-16 sm:scroll-mt-20"
         >
           <Contact />
         </motion.section>
@@ -163,10 +171,10 @@ export default function App() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center py-8 border-t border-white/5 mt-10"
+          className="text-center py-6 border-t border-white/5 mt-6 sm:mt-8"
         >
-          <p className="text-gray-500 text-sm tracking-wide">
-            © 2026 Syeda Gul Andam Ali Kazmi | Built with 💜
+          <p className="text-gray-500 text-xs sm:text-sm tracking-wide">
+            © 2024 Syeda Gul Andam Ali Kazmi | Built with 💜
           </p>
         </motion.footer>
 
