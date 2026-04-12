@@ -174,7 +174,7 @@ export default function App() {
           className="text-center py-6 border-t border-white/5 mt-6 sm:mt-8"
         >
           <p className="text-gray-500 text-xs sm:text-sm tracking-wide">
-            © 2024 Syeda Gul Andam Ali Kazmi | Built with 💜
+            © 2026 Syeda Gul Andam Ali Kazmi | Built with 💜
           </p>
         </motion.footer>
 

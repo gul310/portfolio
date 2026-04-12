@@ -2,39 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance: Optimize rendering */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Accessibility: Smooth scrolling with reduced motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility: Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Performance: GPU acceleration for animations */
+.animate-float,
+.animate-float-delayed,
+.animate-float-slow,
+.animate-float-slower,
+.animate-float-medium {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Accessibility: High contrast text */
+::selection {
+  background-color: #a855f7;
+  color: #ffffff;
+}
+
+/* Accessibility: Smooth font rendering */
 body {
-  background: radial-gradient(circle at top, #0f172a, #020617);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Performance: Lazy loading images */
+img {
+  loading: lazy;
+  decoding: async;
+}
+
+/* Accessibility: Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #a855f7;
   color: white;
-  font-family: 'Inter', sans-serif;
+  padding: 8px;
+  z-index: 100;
+  text-decoration: none;
+  border-radius: 4px;
 }
 
-/* Glass UI */
-.glass {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Gradient Text */
-.gradient-text {
-  background: linear-gradient(135deg,#a855f7,#ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Glow Button */
-.btn-glow {
-  background: linear-gradient(135deg,#9333ea,#ec4899);
-  box-shadow: 0 0 25px rgba(168,85,247,0.6);
-}
-
-/* Floating animation */
-@keyframes float {
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
-  100%{transform:translateY(0)}
-}
-
-.float {
-  animation: float 6s ease-in-out infinite;
+.skip-to-content:focus {
+  top: 0;
 }
