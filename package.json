@@ -3,13 +3,25 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://gul310.github.io/my-portfolio",
+  "homepage": "https://gul310.github.io/portfolio",
+  "description": "Professional Frontend Developer Portfolio - Syeda Gul Andam Ali Kazmi",
+  "author": "Syeda Gul Andam Ali Kazmi",
+  "keywords": [
+    "portfolio",
+    "frontend-developer",
+    "react-developer",
+    "web-developer",
+    "tailwind-css",
+    "framer-motion"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --minify terser",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "analyze": "vite build --mode analyze",
+    "clean": "rm -rf dist node_modules package-lock.json && npm install"
   },
   "dependencies": {
     "framer-motion": "^10.16.4",
@@ -27,5 +39,30 @@
     "tailwindcss": "^3.3.5",
     "terser": "^5.24.0",
     "vite": "^5.0.0"
-  }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "not ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gul310/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gul310/portfolio/issues"
+  },
+  "license": "MIT"
 }
