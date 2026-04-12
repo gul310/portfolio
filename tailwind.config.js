@@ -13,11 +13,11 @@ export default {
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
-          '50%': { transform: 'translateY(-20px) translateX(10px)' },
+          '50%': { transform: 'translateY(-15px) translateX(8px)' },
         },
         'float-delayed': {
           '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
-          '50%': { transform: 'translateY(20px) translateX(-10px)' },
+          '50%': { transform: 'translateY(15px) translateX(-8px)' },
         },
       },
     },
@@ -25,5 +25,9 @@ export default {
   plugins: [],
   future: {
     hoverOnlyWhenSupported: true,
+  },
+  corePlugins: {
+    preflight: true,
+    container: true,
   },
 }

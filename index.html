@@ -5,9 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     
-    <!-- ✅ CRITICAL: Preload fonts and assets -->
+    <!-- ✅ CRITICAL: Preload key requests -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     
     <!-- ✅ SEO Meta Tags -->
     <title>Syeda Gul Andam Ali Kazmi | Frontend Developer Portfolio</title>
@@ -21,12 +22,11 @@
     <meta property="og:title" content="Syeda Gul Andam Ali Kazmi | Frontend Developer Portfolio" />
     <meta property="og:description" content="Professional Frontend Developer portfolio" />
     
-    <!-- ✅ Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Syeda Gul Andam Ali Kazmi | Frontend Developer Portfolio" />
-    
     <!-- ✅ Theme Color -->
     <meta name="theme-color" content="#0a0a1a" />
+    
+    <!-- ✅ Performance: Remove render-blocking -->
+    <link rel="preload" as="style" href="/src/index.css" />
     
     <title>Syeda Gul Andam Ali Kazmi</title>
   </head>

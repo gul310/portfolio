@@ -1,14 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Teaching from "./components/Teaching";
-import Certificates from "./components/Certificates";
-import Contact from "./components/Contact";
-import Github from "./components/Github";
-import Linkedin from "./components/Linkedin";
+
+// ✅ Lazy load components for better performance
+const Projects = lazy(() => import("./components/Projects"));
+const Skills = lazy(() => import("./components/Skills"));
+const Teaching = lazy(() => import("./components/Teaching"));
+const Certificates = lazy(() => import("./components/Certificates"));
+const Github = lazy(() => import("./components/Github"));
+const Linkedin = lazy(() => import("./components/Linkedin"));
+const Contact = lazy(() => import("./components/Contact"));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="min-h-[50vh] flex items-center justify-center bg-[#0a0a1a]">
+    <div className="relative">
+      <div className="w-12 h-12 border-4 border-violet-500/20 border-t-violet-500 rounded-full animate-spin"></div>
+      <div className="absolute inset-0 w-12 h-12 border-4 border-rose-500/20 border-b-rose-500 rounded-full animate-spin"></div>
+    </div>
+  </div>
+);
 
 export default function App() {
   // Smooth scroll progress bar
@@ -22,6 +34,15 @@ export default function App() {
   // Smooth page load animation
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Update document title for SEO
+    document.title = "Syeda Gul Andam Ali Kazmi | Frontend Developer Portfolio";
+    
+    // Set meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Professional Frontend Developer specializing in React, modern web applications, and high-performance websites. View my portfolio and projects.");
+    }
   }, []);
 
   // Section animations variants
@@ -35,174 +56,196 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#0a0a1a] relative overflow-x-hidden">
+    <>
+      {/* Skip to content link for accessibility */}
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
       
-      {/* ✨ PROGRESS BAR - Smooth scroll indicator */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-rose-500 to-violet-500 z-50 origin-left"
-        style={{ scaleX }}
-      />
-
-      {/* ✨ CURSOR GLOW EFFECT - Premium touch */}
-      <motion.div
-        className="fixed w-96 h-96 bg-violet-500/10 rounded-full blur-[100px] pointer-events-none z-0"
-        animate={{
-          x: [0, 100, -50, 0],
-          y: [0, -50, 100, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        style={{
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      />
-
-      {/* ✨ SOFT BACKGROUND OVERLAY */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#0a0a1a] via-[#0a0a1a] to-[#0f0f2a] pointer-events-none z-0" />
-      
-      {/* ✨ FLOATING ORBS BACKGROUND */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute w-[500px] h-[500px] bg-violet-400/5 rounded-full blur-[120px] top-[20%] left-[-10%] animate-float-slow" />
-        <div className="absolute w-[600px] h-[600px] bg-rose-400/5 rounded-full blur-[120px] bottom-[10%] right-[-15%] animate-float-slower" />
-        <div className="absolute w-[400px] h-[400px] bg-indigo-400/5 rounded-full blur-[100px] top-[50%] left-[30%] animate-float-medium" />
-      </div>
-
-      {/* MAIN CONTENT - Mobile gaps fixed */}
-      <div className="relative z-10">
+      <div className="bg-[#0a0a1a] relative overflow-x-hidden">
         
-        {/* Navbar - Stays on top */}
-        <Navbar />
+        {/* ✨ PROGRESS BAR - Smooth scroll indicator */}
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-rose-500 to-violet-500 z-50 origin-left"
+          style={{ scaleX }}
+          role="progressbar"
+          aria-label="Scroll progress"
+        />
+
+        {/* ✨ CURSOR GLOW EFFECT - Premium touch */}
+        <div
+          className="fixed w-96 h-96 bg-violet-500/10 rounded-full blur-[100px] pointer-events-none z-0"
+          aria-hidden="true"
+        />
         
-        {/* Hero Section - No extra gap */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="scroll-mt-0"
-        >
-          <Hero />
-        </motion.section>
+        {/* ✨ SOFT BACKGROUND OVERLAY */}
+        <div className="fixed inset-0 bg-gradient-to-b from-[#0a0a1a] via-[#0a0a1a] to-[#0f0f2a] pointer-events-none z-0" aria-hidden="true" />
+        
+        {/* ✨ FLOATING ORBS BACKGROUND */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
+          <div className="absolute w-[500px] h-[500px] bg-violet-400/5 rounded-full blur-[120px] top-[20%] left-[-10%] animate-float-slow" />
+          <div className="absolute w-[600px] h-[600px] bg-rose-400/5 rounded-full blur-[120px] bottom-[10%] right-[-15%] animate-float-slower" />
+          <div className="absolute w-[400px] h-[400px] bg-indigo-400/5 rounded-full blur-[100px] top-[50%] left-[30%] animate-float-medium" />
+        </div>
 
-        {/* Projects Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Projects />
-        </motion.section>
+        {/* MAIN CONTENT */}
+        <div className="relative z-10" id="main-content">
+          
+          {/* Navbar - Stays on top */}
+          <Navbar />
+          
+          {/* Hero Section - With entrance animation */}
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="scroll-mt-0"
+            aria-label="Hero section"
+          >
+            <Hero />
+          </motion.section>
 
-        {/* Skills Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Skills />
-        </motion.section>
+          {/* Projects Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="Projects section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Projects />
+            </Suspense>
+          </motion.section>
 
-        {/* Teaching Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Teaching />
-        </motion.section>
+          {/* Skills Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="Skills section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Skills />
+            </Suspense>
+          </motion.section>
 
-        {/* Certificates Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Certificates />
-        </motion.section>
+          {/* Teaching Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="Teaching section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Teaching />
+            </Suspense>
+          </motion.section>
 
-        {/* Github Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Github />
-        </motion.section>
+          {/* Certificates Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="Certificates section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Certificates />
+            </Suspense>
+          </motion.section>
 
-        {/* LinkedIn Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Linkedin />
-        </motion.section>
+          {/* Github Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="GitHub section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Github />
+            </Suspense>
+          </motion.section>
 
-        {/* Contact Section - Reduced gap */}
-        <motion.section
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="scroll-mt-16 sm:scroll-mt-20"
-        >
-          <Contact />
-        </motion.section>
+          {/* LinkedIn Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="LinkedIn section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Linkedin />
+            </Suspense>
+          </motion.section>
 
-        {/* ✨ FOOTER CREDIT */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center py-6 border-t border-white/5 mt-6 sm:mt-8"
-        >
-          <p className="text-gray-500 text-xs sm:text-sm tracking-wide">
-            © 2026 Syeda Gul Andam Ali Kazmi | Built with 💜
-          </p>
-        </motion.footer>
+          {/* Contact Section - Lazy Loaded */}
+          <motion.section
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="scroll-mt-16 sm:scroll-mt-20"
+            aria-label="Contact section"
+          >
+            <Suspense fallback={<LoadingFallback />}>
+              <Contact />
+            </Suspense>
+          </motion.section>
 
+          {/* ✨ FOOTER CREDIT */}
+          <footer
+            className="text-center py-6 border-t border-white/5 mt-6 sm:mt-8"
+            aria-label="Footer"
+          >
+            <p className="text-gray-500 text-xs sm:text-sm tracking-wide">
+              © 2024 Syeda Gul Andam Ali Kazmi | Built with <span aria-label="love">💜</span>
+            </p>
+          </footer>
+
+        </div>
+
+        <style jsx>{`
+          @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-30px) translateX(20px); }
+          }
+          @keyframes float-slower {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(40px) translateX(-30px); }
+          }
+          @keyframes float-medium {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(-15px); }
+          }
+          .animate-float-slow {
+            animation: float-slow 12s ease-in-out infinite;
+          }
+          .animate-float-slower {
+            animation: float-slower 15s ease-in-out infinite;
+          }
+          .animate-float-medium {
+            animation: float-medium 10s ease-in-out infinite;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .animate-float-slow,
+            .animate-float-slower,
+            .animate-float-medium {
+              animation: none;
+            }
+          }
+        `}</style>
       </div>
-
-      <style jsx>{`
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          50% { transform: translateY(-30px) translateX(20px); }
-        }
-        @keyframes float-slower {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          50% { transform: translateY(40px) translateX(-30px); }
-        }
-        @keyframes float-medium {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          50% { transform: translateY(-20px) translateX(-15px); }
-        }
-        .animate-float-slow {
-          animation: float-slow 12s ease-in-out infinite;
-        }
-        .animate-float-slower {
-          animation: float-slower 15s ease-in-out infinite;
-        }
-        .animate-float-medium {
-          animation: float-medium 10s ease-in-out infinite;
-        }
-      `}</style>
-    </div>
+    </>
   );
 }
