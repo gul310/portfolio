@@ -1,234 +1,166 @@
+import React from "react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { personalInfo } from "../data/portfolioData";
+import { ArrowRightIcon, WhatsAppIcon, CodeIcon, AcademicCapIcon, BriefcaseIcon } from "./Icons";
 
 export default function Hero() {
-  // Performance: Detect mobile for reduced animations
-  const [isMobile, setIsMobile] = useState(false);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
-
-  useEffect(() => {
-    // Check for reduced motion preference
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setIsReducedMotion(motionQuery.matches);
-    
-    const handleMotionChange = (e) => setIsReducedMotion(e.matches);
-    motionQuery.addEventListener('change', handleMotionChange);
-    
-    // Check for mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      motionQuery.removeEventListener('change', handleMotionChange);
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
-
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8 relative overflow-hidden bg-[#0a0a1a]">
+    <header
+      id="hero"
+      className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#070b14]"
+      aria-label="Hero Introduction"
+    >
+      {/* Background radial gradient layers */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[400px] sm:h-[500px] bg-gradient-to-tr from-violet-600/15 via-indigo-600/10 to-transparent blur-[140px] pointer-events-none rounded-full"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-10 right-10 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-cyan-600/10 blur-[130px] pointer-events-none rounded-full"
+        aria-hidden="true"
+      />
 
-      {/* 🔥 DREAMY BACKGROUND - Optimized for performance */}
-      <div className="absolute w-[400px] sm:w-[600px] md:w-[800px] lg:w-[900px] h-[400px] sm:h-[600px] md:h-[800px] lg:h-[900px] bg-violet-400/15 blur-[100px] sm:blur-[150px] md:blur-[180px] lg:blur-[200px] top-[-200px] sm:top-[-250px] lg:top-[-350px] left-[-150px] sm:left-[-200px] lg:left-[-250px] rounded-full animate-float"></div>
-      
-      <div className="absolute w-[350px] sm:w-[500px] md:w-[700px] lg:w-[800px] h-[350px] sm:h-[500px] md:h-[700px] lg:h-[800px] bg-rose-300/15 blur-[100px] sm:blur-[150px] md:blur-[180px] lg:blur-[200px] bottom-[-150px] sm:bottom-[-200px] lg:bottom-[-250px] right-[-150px] sm:right-[-200px] lg:right-[-250px] rounded-full animate-float-delayed"></div>
-      
-      <div className="absolute w-[250px] sm:w-[350px] md:w-[500px] h-[250px] sm:h-[350px] md:h-[500px] bg-indigo-400/10 blur-[80px] sm:blur-[120px] md:blur-[150px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"></div>
-      
-      {/* ✨ SOFT SPARKLES - Reduced on mobile for performance */}
-      {!isMobile && !isReducedMotion && [...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: [0, 0.3, 0], scale: [0, 1, 0] }}
-          transition={{ duration: 3, delay: i * 0.5, repeat: Infinity, repeatDelay: Math.random() * 4 }}
-          className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white/20 rounded-full"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
-        />
-      ))}
-
-      {/* 💎 MAIN GLASS CARD - Optimized */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-4xl xl:max-w-5xl 
-        px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16 
-        py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 
-        rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] lg:rounded-[3rem]
-        bg-white/5 backdrop-blur-lg sm:backdrop-blur-xl md:backdrop-blur-2xl lg:backdrop-blur-3xl
-        border border-white/10 
-        shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]
-        hover:shadow-[0_30px_80px_-20px_rgba(139,92,246,0.15)]
-        transition-all duration-500
-        flex flex-col items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6"
-      >
+      <div className="relative max-w-5xl mx-auto w-full z-10 text-center">
         
-        {/* 👋 SMALL GREETING BADGE */}
+        {/* Academic & Leadership Dual Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.15, duration: 0.4 }}
-          className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-6"
         >
-          <span className="text-[10px] sm:text-xs md:text-sm text-gray-300 tracking-wide">
-            ✨ Welcome to my portfolio ✨
-          </span>
+          <div className="flex items-center gap-1.5 text-xs text-violet-300 font-medium">
+            <AcademicCapIcon className="w-3.5 h-3.5" />
+            <span>Software Engineering Student</span>
+          </div>
+          <span className="text-gray-600 hidden sm:inline">&bull;</span>
+          <div className="flex items-center gap-1.5 text-xs text-cyan-300 font-medium">
+            <BriefcaseIcon className="w-3.5 h-3.5" />
+            <span>Co-Founder & Technical Lead at Jafasa Tech</span>
+          </div>
         </motion.div>
 
-        {/* 👑 HI I'M */}
+        {/* Full Name */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-wide text-gray-200"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-4"
         >
-          Hi, I'm
-          {!isReducedMotion && (
-            <motion.span
-              animate={{ 
-                y: [0, -6, 0],
-                rotate: [0, 12, 0]
-              }}
-              transition={{ delay: 0.5, duration: 0.6, repeat: 1 }}
-              className="inline-block ml-1 sm:ml-2 text-2xl sm:text-3xl md:text-4xl"
-            >
-              👋
-            </motion.span>
-          )}
-          {isReducedMotion && <span className="inline-block ml-1 sm:ml-2 text-2xl sm:text-3xl md:text-4xl">👋</span>}
+          <span className="block">{personalInfo.fullName}</span>
         </motion.h1>
 
-        {/* 👤 NAME */}
+        {/* Primary Headline */}
         <motion.h2
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.35, duration: 0.6, type: "spring", stiffness: 80, damping: 15 }}
-          className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-center
-          bg-gradient-to-r from-violet-300 via-rose-200 to-indigo-300 
-          bg-clip-text text-transparent
-          leading-tight tracking-tight px-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-lg sm:text-2xl md:text-2xl font-semibold bg-gradient-to-r from-violet-300 via-indigo-200 to-cyan-300 bg-clip-text text-transparent max-w-3xl mx-auto mb-4"
         >
-          <span className="block sm:inline">Syeda Gul Andam</span>
-          <span className="hidden sm:inline"> </span>
-          <span className="block sm:inline">Ali Kazmi</span>
+          {personalInfo.headline}
         </motion.h2>
 
-        {/* 🌸 SOFT DIVIDER */}
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: "40px" }}
-          transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-          className="h-[2px] bg-gradient-to-r from-violet-300/50 via-rose-300/50 to-transparent rounded-full my-1 sm:my-2"
-        ></motion.div>
-
-        {/* 📝 SUBTEXT */}
+        {/* Supporting Headline */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="text-gray-400 max-w-[90%] sm:max-w-lg md:max-w-xl lg:max-w-2xl 
-          text-xs sm:text-sm md:text-base lg:text-lg 
-          leading-relaxed sm:leading-relaxed md:leading-relaxed 
-          font-light tracking-wide px-2"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-6 font-normal leading-relaxed"
         >
-          Frontend Developer crafting 
-          <span className="text-rose-300/80"> modern, clean </span> 
-          and
-          <span className="text-violet-300/80"> high-performance </span> 
-          web experiences for global clients.
+          {personalInfo.supportingHeadline}
         </motion.p>
 
-        {/* 🚀 BUTTONS */}
+        {/* Verified Professional Introduction */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.75, duration: 0.5 }}
-          className="flex flex-col xs:flex-row gap-3 sm:gap-4 md:gap-5 mt-3 sm:mt-4 md:mt-6 w-full sm:w-auto px-4 sm:px-0"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="max-w-3xl mx-auto p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md mb-8 text-left"
         >
-          <motion.a
-            href="#projects"
-            whileHover={!isReducedMotion ? { scale: 1.05, y: -2 } : {}}
-            whileTap={{ scale: 0.98 }}
-            className="group relative px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-full overflow-hidden text-center cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-500/80 to-rose-500/80 rounded-full"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/80 to-violet-500/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <span className="relative z-10 text-white font-medium text-sm sm:text-base tracking-wide">
-              ✨ View Work
-            </span>
-          </motion.a>
-
-          <motion.a
-            href="#contact"
-            whileHover={!isReducedMotion ? { scale: 1.05, y: -2 } : {}}
-            whileTap={{ scale: 0.98 }}
-            className="px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-full 
-            bg-white/5 backdrop-blur-sm
-            border border-white/15 
-            hover:bg-white/10 hover:border-white/25
-            transition-all duration-400 
-            text-gray-300 font-medium text-sm sm:text-base tracking-wide text-center cursor-pointer"
-          >
-            💌 Contact Me
-          </motion.a>
+          <p className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed font-light">
+            {personalInfo.introduction}
+          </p>
         </motion.div>
 
-      </motion.div>
+        {/* Call to Actions (CTAs) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+        >
+          {/* Software Projects */}
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-medium text-sm transition-all duration-200 shadow-lg shadow-violet-900/30 hover:shadow-violet-900/50 hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          >
+            <CodeIcon className="w-4 h-4" />
+            <span>Explore Projects</span>
+            <ArrowRightIcon className="w-4 h-4" />
+          </a>
 
-      {/* 🎯 SCROLL INDICATOR - Hidden on mobile */}
-      {!isReducedMotion && (
+          {/* Academic Journey */}
+          <a
+            href="#academic"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 text-gray-200 font-medium text-sm transition-all duration-200 hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          >
+            <AcademicCapIcon className="w-4 h-4 text-violet-300" />
+            <span>Academic Journey</span>
+          </a>
+
+          {/* Official WhatsApp */}
+          <a
+            href={personalInfo.contact.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-medium text-sm transition-all duration-200 hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          >
+            <WhatsAppIcon className="w-4 h-4 text-emerald-400" />
+            <span>WhatsApp Discussion</span>
+          </a>
+
+          {/* Contact Direct */}
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 text-gray-400 hover:text-white font-medium text-sm transition-colors"
+          >
+            <span>Get in Touch</span>
+          </a>
+        </motion.div>
+
+        {/* Quick Highlights Row */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:block"
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mt-12 sm:mt-14 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-left max-w-4xl mx-auto"
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/20 rounded-full flex justify-center cursor-pointer"
-          >
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-1.5 sm:w-1.5 sm:h-2 bg-white/30 rounded-full mt-1.5 sm:mt-2"
-            />
-          </motion.div>
-        </motion.div>
-      )}
+          <div className="p-3">
+            <span className="block text-xs uppercase tracking-wider text-gray-300 font-mono">Academic Status</span>
+            <span className="text-sm font-semibold text-white">Degree in Progress</span>
+            <span className="block text-xs text-gray-300">City University (CUSIT)</span>
+          </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          50% { transform: translateY(-15px) translateX(8px); }
-        }
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          50% { transform: translateY(15px) translateX(-8px); }
-        }
-        .animate-float {
-          animation: float 8s ease-in-out infinite;
-        }
-        .animate-float-delayed {
-          animation: float-delayed 10s ease-in-out infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-float, .animate-float-delayed {
-            animation: none;
-          }
-        }
-        @media (max-width: 640px) {
-          .animate-float, .animate-float-delayed {
-            animation-duration: 12s;
-          }
-        }
-      `}</style>
-    </section>
+          <div className="p-3">
+            <span className="block text-xs uppercase tracking-wider text-gray-300 font-mono">Leadership Role</span>
+            <span className="text-sm font-semibold text-white">Co-Founder & Tech Lead</span>
+            <span className="block text-xs text-gray-300">Jafasa Tech Solutions</span>
+          </div>
+
+          <div className="p-3">
+            <span className="block text-xs uppercase tracking-wider text-gray-300 font-mono">Verified Portfolios</span>
+            <span className="text-sm font-semibold text-white">12 Business Sites</span>
+            <span className="block text-xs text-gray-300">Audited UAE & Regional</span>
+          </div>
+
+          <div className="p-3">
+            <span className="block text-xs uppercase tracking-wider text-gray-300 font-mono">Instruction</span>
+            <span className="text-sm font-semibold text-white">Technical Trainer</span>
+            <span className="block text-xs text-gray-300">Six-Month Program</span>
+          </div>
+        </motion.div>
+
+      </div>
+    </header>
   );
 }
